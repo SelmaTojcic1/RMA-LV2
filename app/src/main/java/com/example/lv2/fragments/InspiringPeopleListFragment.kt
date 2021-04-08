@@ -1,16 +1,18 @@
 package com.example.lv2.fragments
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.lv2.InspiringPeopleRepository
 import com.example.lv2.OnInspiringPersonSelectedListener
+import com.example.lv2.R
 import com.example.lv2.databinding.FragmentInspiringPeopleListBinding
 import com.example.lv2.adapters.InspiringPeopleAdapter
+import com.example.lv2.model.InspiringPerson
 
 class InspiringPeopleListFragment: Fragment() {
 
@@ -37,6 +39,8 @@ class InspiringPeopleListFragment: Fragment() {
         )
         setupRecyclerView()
 
+        setHasOptionsMenu(true)
+
         return inspiringPeopleListBinding.root
     }
 
@@ -62,4 +66,30 @@ class InspiringPeopleListFragment: Fragment() {
         inspiringPeopleListBinding.rvInspiringPeople.adapter =
             InspiringPeopleAdapter(inspiringPeopleRepository.getInspiringPeople(), onInspiringInspiringPersonSelectedListener)
     }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.delete_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == R.id.menu_delete) {
+            deleteAllInspiringPeople()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun deleteAllInspiringPeople() {
+        val builder = AlertDialog.Builder(requireContext())
+
+        builder.setTitle("Are you sure you want to delete everyone?")
+                .setPositiveButton("Yes") { _, _ ->
+                        inspiringPeopleRepository.deleteAll()
+                }
+                .setNegativeButton("No", DialogInterface.OnClickListener { dialog, _ ->
+                    dialog.cancel()
+                })
+                .create()
+                .show()
+        }
+
 }

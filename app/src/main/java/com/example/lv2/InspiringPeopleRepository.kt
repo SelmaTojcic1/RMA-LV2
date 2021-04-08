@@ -31,4 +31,5 @@ object InspiringPeopleRepository {
     fun getInspiringPerson(name: String) : InspiringPerson = inspiringPeople.first { it -> it.name == name}
     fun insert(inspiringPerson: InspiringPerson) = inspiringPeople.add(inspiringPerson)
     fun delete(inspiringPerson: InspiringPerson) = inspiringPeople.remove(inspiringPerson)
+    fun deleteAll() = inspiringPeople.clear()
 }

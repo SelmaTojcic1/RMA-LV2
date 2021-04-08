@@ -19,13 +19,17 @@ class NewInspiringPersonActivity : AppCompatActivity(){
     }
 
     private fun saveInspiringPerson() {
+        val quotes = mutableListOf<String>()
+
         val name = newInspiringPersonBinding.etNewInspiringPersonNameInput.text.toString()
         val date = newInspiringPersonBinding.etNewInspiringPersonDateInput.text.toString()
         val details = newInspiringPersonBinding.etNewInspiringPersonDetailsInput.text.toString()
         val imageUrl = newInspiringPersonBinding.etNewInspiringPersonUrlInput.text.toString()
+        val firstQuote = newInspiringPersonBinding.etNewInspiringPersonFirstQuoteInput.text.toString()
+        val secondQuote = newInspiringPersonBinding.etNewInspiringPersonSecondQuoteInput.text.toString()
 
-        //placeholder
-        val quotes = mutableListOf("", "")
+        quotes.add(firstQuote)
+        quotes.add(secondQuote)
 
         val inspiringPerson = InspiringPerson(name, date, details, imageUrl, quotes)
         inspiringPeopleRepository.insert(inspiringPerson)

@@ -18,9 +18,9 @@ class InspiringPeopleAdapter(
         refreshData(inspiringPeople)
     }
 
-    fun refreshData(notes: List<InspiringPerson>) {
+    fun refreshData(inspiringPeople: List<InspiringPerson>) {
         this.inspiringPeople.clear()
-        this.inspiringPeople.addAll(notes)
+        this.inspiringPeople.addAll(inspiringPeople)
         this.notifyDataSetChanged()
     }
 
