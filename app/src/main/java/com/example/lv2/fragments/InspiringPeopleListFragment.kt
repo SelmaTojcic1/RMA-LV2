@@ -12,13 +12,12 @@ import com.example.lv2.OnInspiringPersonSelectedListener
 import com.example.lv2.R
 import com.example.lv2.databinding.FragmentInspiringPeopleListBinding
 import com.example.lv2.adapters.InspiringPeopleAdapter
-import com.example.lv2.model.InspiringPerson
 
 class InspiringPeopleListFragment: Fragment() {
 
-    private lateinit var  onInspiringInspiringPersonSelectedListener: OnInspiringPersonSelectedListener
     private lateinit var  inspiringPeopleListBinding: FragmentInspiringPeopleListBinding
     private val inspiringPeopleRepository = InspiringPeopleRepository
+    private lateinit var  onInspiringInspiringPersonSelectedListener: OnInspiringPersonSelectedListener
 
     companion object {
         const val TAG = "List"

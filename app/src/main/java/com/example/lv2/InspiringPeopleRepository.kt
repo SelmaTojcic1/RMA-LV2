@@ -32,4 +32,16 @@ object InspiringPeopleRepository {
     fun insert(inspiringPerson: InspiringPerson) = inspiringPeople.add(inspiringPerson)
     fun delete(inspiringPerson: InspiringPerson) = inspiringPeople.remove(inspiringPerson)
     fun deleteAll() = inspiringPeople.clear()
+    fun changeName(inspiringPerson: InspiringPerson, name: String) {
+        inspiringPerson.name = name
+    }
+    fun changeDate(inspiringPerson: InspiringPerson, date: String) {
+        inspiringPerson.date = date
+    }
+    fun changeDetails(inspiringPerson: InspiringPerson, details: String) {
+        inspiringPerson.details = details
+    }
+    fun changeImageUrl(inspiringPerson: InspiringPerson, imageUrl: String) {
+        inspiringPerson.imageUrl = imageUrl
+    }
 }

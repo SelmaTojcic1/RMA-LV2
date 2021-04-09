@@ -12,6 +12,7 @@ class InspiringPeopleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVi
 
     fun bind(inspiringPerson: InspiringPerson) {
         val itemInspiringPersonBinding = ItemInspiringPersonBinding.bind(itemView)
+
         itemInspiringPersonBinding.tvInspiringPersonItemName.text = inspiringPerson.name
         itemInspiringPersonBinding.tvInspiringPersonItemDetails.text = inspiringPerson.details
         itemInspiringPersonBinding.tvInspiringPersonItemDate.text = inspiringPerson.date
@@ -25,7 +26,7 @@ class InspiringPeopleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVi
         itemInspiringPersonBinding.ivInspiringPersonItemPhoto.setOnClickListener {
             Toast.makeText(itemInspiringPersonBinding.ivInspiringPersonItemPhoto.context,
                     inspiringPerson.quotesList.random(),
-                    Toast.LENGTH_LONG).show()
+                    Toast.LENGTH_SHORT).show()
         }
     }
 

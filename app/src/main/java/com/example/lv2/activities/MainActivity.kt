@@ -3,15 +3,16 @@ package com.example.lv2.activities
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.lv2.OnInspiringPersonEditDetailsSelectedListener
 import com.example.lv2.OnInspiringPersonSelectedListener
 import com.example.lv2.R
-import com.example.lv2.adapters.InspiringPeopleAdapter
 import com.example.lv2.databinding.ActivityMainBinding
 import com.example.lv2.fragments.InspiringPeopleListFragment
 import com.example.lv2.fragments.InspiringPersonDetailsFragment
+import com.example.lv2.fragments.InspiringPersonEditDetailsFragment
 import com.example.lv2.model.InspiringPerson
 
-class MainActivity : AppCompatActivity(), OnInspiringPersonSelectedListener {
+class MainActivity : AppCompatActivity(), OnInspiringPersonSelectedListener, OnInspiringPersonEditDetailsSelectedListener {
 
     private lateinit var mainBinding: ActivityMainBinding
 
@@ -43,5 +44,14 @@ class MainActivity : AppCompatActivity(), OnInspiringPersonSelectedListener {
                     InspiringPersonDetailsFragment.TAG)
             .addToBackStack(null)
             .commit()
+    }
+
+    override fun onInspiringPersonEditDetailsSelected(inspiringPerson: InspiringPerson) {
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.fl_fragmentContainer,
+                        InspiringPersonEditDetailsFragment.create(inspiringPerson),
+                        InspiringPersonEditDetailsFragment.TAG)
+                .addToBackStack(null)
+                .commit()
     }
 }

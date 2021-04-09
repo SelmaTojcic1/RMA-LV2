@@ -1,15 +1,15 @@
 package com.example.lv2.fragments
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.DialogInterface
-import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import com.example.lv2.GlideApp
 import com.example.lv2.InspiringPeopleRepository
+import com.example.lv2.OnInspiringPersonEditDetailsSelectedListener
 import com.example.lv2.R
-import com.example.lv2.activities.NewInspiringPersonActivity
 import com.example.lv2.databinding.FragmentInspiringPersonDetailsBinding
 import com.example.lv2.model.InspiringPerson
 
@@ -18,10 +18,12 @@ class InspiringPersonDetailsFragment : Fragment(){
 
     lateinit var inspiringPersonDetailsBinding: FragmentInspiringPersonDetailsBinding
     private val inspiringPeopleRepository = InspiringPeopleRepository
+    private lateinit var onInspiringPersonEditDetailsSelectedListener:
+            OnInspiringPersonEditDetailsSelectedListener
 
     companion object{
         const val TAG = "Details"
-        private const val KEY = "InspiringPerson"
+        const val KEY = "InspiringPerson"
 
         fun create(inspiringPerson: InspiringPerson) : InspiringPersonDetailsFragment {
             val args = Bundle()
@@ -33,14 +35,14 @@ class InspiringPersonDetailsFragment : Fragment(){
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         inspiringPersonDetailsBinding = FragmentInspiringPersonDetailsBinding.inflate(
-            inflater,
-            container,
-            false
+                inflater,
+                container,
+                false
         )
 
         arguments?.let {
@@ -54,17 +56,25 @@ class InspiringPersonDetailsFragment : Fragment(){
                 .placeholder(R.drawable.placeholder_person)
                 .centerCrop()
                 .into(inspiringPersonDetailsBinding.ivInspiringPersonPhoto)
-        }
 
-        //napravit da uredi
-        inspiringPersonDetailsBinding.btnEditInformation.setOnClickListener {
-            val intent = Intent(activity,  NewInspiringPersonActivity::class.java)
-            startActivity(intent)
+            inspiringPersonDetailsBinding.btnEditInformation.setOnClickListener {
+                onInspiringPersonEditDetailsSelectedListener
+                        .onInspiringPersonEditDetailsSelected(
+                                inspiringPeopleRepository.getInspiringPerson(inspiringPerson.name))
+            }
         }
 
         setHasOptionsMenu(true)
 
         return inspiringPersonDetailsBinding.root
+    }
+
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if(context is OnInspiringPersonEditDetailsSelectedListener){
+            onInspiringPersonEditDetailsSelectedListener = context
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
